@@ -3,30 +3,41 @@
 
 // PART 1: SHOW A FORTUNE
 
-function showFortune(evt) {
+function showFortune(results){
 
     // TODO: get the fortune and show it in the #fortune-text div
+    var fortune = results;
+    $('#fortune-text').html(fortune);
+}
+    
+function getFortune(){
+    $.get("/fortune", showFortune);
 }
 
-$('#get-fortune-button').on('click', showFortune);
-
-
+$('#get-fortune-button').on('click', getFortune);
 
 
 
 // PART 2: SHOW WEATHER
+function getWeather(results){
+
+   $('#weather-info').html(results.forecast);
+
+}   
 
 function showWeather(evt) {
     evt.preventDefault();
 
     var url = "/weather.json?zipcode=" + $("#zipcode-field").val();
+    $.get(url, getWeather);
+    
 
     // TODO: request weather with that URL and show the forecast in #weather-info
 }
+    // var forecast = evt['forecast'];
+     
 
 $("#weather-form").on('submit', showWeather);
-
-
 
 
 // PART 3: ORDER MELONS
